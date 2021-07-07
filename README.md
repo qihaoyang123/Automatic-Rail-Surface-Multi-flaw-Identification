@@ -47,6 +47,7 @@ python test_benchmark.py
 python deep_ml.py
 ``` 
 	The following command tests our model:
+	
 ```
 python densenet_add_test.py
 ```
