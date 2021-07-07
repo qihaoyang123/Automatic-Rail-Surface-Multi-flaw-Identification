@@ -49,15 +49,15 @@ if __name__ == '__main__':
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
     kf = KFold(n_splits=4)
-    x1_,y1_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/corrugation_new','Corrugation')
-    x1,y1 = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Corrugation','Corrugation')
-    x2,y2 = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Defect','Defect')
-    x2_,y2_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/defect_new_','Defect')
-    x3,y3 = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Rail_with_Grinding_Mark','Rail with Grinding Mark')
-    x4,y4 = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Shelling','Shelling')
-    x4_,y4_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/shelling_new','Shelling')
-    x5,y5 = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Squat','Squat')
-    x5_,y5_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/squat_new','Squat')
+    x1_test_,y1_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/corrugation_new_test','Corrugation')
+    x1_test,y1_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Corrugation_test','Corrugation')
+    x2_test,y2_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Defect_test','Defect')
+    x2_test_,y2_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/defect_new_test','Defect')
+    x3_test,y3_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Rail_with_Grinding_Mark_test','Rail with Grinding Mark')
+    x4_test,y4_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Shelling_test','Shelling')
+    x4_test_,y4_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/shelling_new_test','Shelling')
+    x5_test,y5_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Squat_test','Squat')
+    x5_test_,y5_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/squat_new_test','Squat')
     score = 0
     score1 = 0
     score2 = 0
@@ -68,43 +68,9 @@ if __name__ == '__main__':
     score1_ = 0
     score4_ = 0
     score5_ = 0
-    for threshold in range(1,2):
-        x1_train, x1_test, y1_train, y1_test = train_test_split(x1, y1, test_size=0.3, random_state=18)
-        x1_train_, x1_test_, y1_train_, y1_test_ = train_test_split(x1_, y1_, test_size=0.3, random_state=18)
-        x2_train, x2_test, y2_train, y2_test = train_test_split(x2, y2, test_size=0.3, random_state=18)
-        x2_train_, x2_test_, y2_train_, y2_test_ = train_test_split(x2_, y2_, test_size=0.3, random_state=18)
-        x3_train, x3_test, y3_train, y3_test = train_test_split(x3, y3, test_size=0.3, random_state=18)
-        x4_train, x4_test, y4_train, y4_test = train_test_split(x4, y4, test_size=0.3, random_state=18)
-        x4_train_, x4_test_, y4_train_, y4_test_ = train_test_split(x4_, y4_, test_size=0.3, random_state=18)
-        x5_train, x5_test, y5_train, y5_test = train_test_split(x5, y5, test_size=0.3, random_state=18)
-        x5_train_, x5_test_, y5_train_, y5_test_ = train_test_split(x5_, y5_, test_size=0.3, random_state=18)
-        
-        def augmentation(x1_train,y1_train):
-            x1_train_ = x1_train
-            x1_train1 = x1_train
-            x1_train2 = x1_train
-            x1_train3 = x1_train
-            y1_train_ = y1_train
-            y1_train1 = y1_train
-            y1_train2 = y1_train
-            y1_train3 = y1_train
-            for i in range(0,len(x1_train)):
-                x1_train1[i] = cv2.flip(x1_train[i],1)
-            for i in range(0,len(x1_train)):
-                x1_train2[i] = cv2.flip(x1_train[i],0)
-            for i in range(0,len(x1_train)):
-                x1_train3[i] = cv2.flip(x1_train[i],-1)
-            y1_train = np.concatenate((y1_train_,y1_train1,y1_train2,y1_train3))
-            x1_train = np.concatenate((x1_train_,x1_train1,x1_train2,x1_train3))
-            return x1_train, y1_train
-        x1_train,y1_train = augmentation(x1_train,y1_train)
-        x4_train,y4_train = augmentation(x4_train,y4_train)
-        x5_train,y5_train = augmentation(x5_train,y5_train)      
-        x_train = np.concatenate((x1_train,x2_train,x2_train_,x3_train,x4_train,x5_train,x1_train_,x4_train_,x5_train_))
+    for threshold in range(1,2):      
         x_test = np.concatenate((x1_test,x2_test,x2_test_,x3_test,x4_test,x5_test,x1_test_,x4_test_,x5_test_))
-        y_train = np.concatenate((y1_train,y2_train,y2_train_,y3_train,y4_train,y5_train,y1_train_,y4_train_,y5_train_))
         y_test = np.concatenate((y1_test,y2_test,y2_test_,y3_test,y4_test,y5_test,y1_test_,y4_test_,y5_test_))
-        y_train = np_utils.to_categorical(y_train,num_classes=5)
         y_test = np_utils.to_categorical(y_test,num_classes=5)
         model = load_model(filepath = '/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet_169_03-01_all_5classes',custom_objects={'Scale':Scale})
         time_start=time.time()

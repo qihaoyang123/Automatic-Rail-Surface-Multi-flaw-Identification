@@ -49,7 +49,7 @@ if __name__ == '__main__':
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
     kf = KFold(n_splits=4)
-    x2_,y2_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/defect__','Defect')
+    x2_,y2_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/defect_online','Defect')
     x1_o,y1_o = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Online Data/corrugation_new_online','Corrugation')
     x5_o,y5_o = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Online Data/squat_new_online','Squat')
     score = 0
