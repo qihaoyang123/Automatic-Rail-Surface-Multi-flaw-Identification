@@ -14,7 +14,7 @@ The Automatic Rail Surface Multi-flaw Identification Based on A Deep Learning Po
 This paper develops a vision-based inspection framework for the automated identification of rail surface flaw categories.
 
 The procedure of the model in this paper is presented in the next image:
-<img src="https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/procedure.jpg" width="200" height="200">
+<img src="https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/procedure.jpg" width="600" height="400">
 
 The structure of the classifier in this paper is presented in the next image:
 ![image](https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/structure.jpg)
