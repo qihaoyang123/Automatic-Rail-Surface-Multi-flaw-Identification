@@ -46,15 +46,15 @@ python test_benchmark.py
 ```
 python deep_ml.py
 ``` 
-	The following command tests our model:
+4. The following command tests our model:
 	
 ```
 python densenet_add_test.py
 ```
 
-4. If you want to test the online dataset, you can just run the test_online.py, deep_ml_online.py, densenet_add_online_test.py.
+5. If you want to test the online dataset, you can just run the test_online.py, deep_ml_online.py, densenet_add_online_test.py.
 
-5. If you want to use your own data to train the model, you need to run track_extraction.py to extract the critical part of the image. Then you can utilize images to train our model.
+6. If you want to use your own data to train the model, you need to run track_extraction.py to extract the critical part of the image. Then you can utilize images to train our model.
 
 ## Results
 
