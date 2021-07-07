@@ -17,7 +17,7 @@ The procedure of the model in this paper is presented in the next image:
 <img src="https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/procedure.jpg" width="600" height="400">
 
 The structure of the classifier in this paper is presented in the next image:
-![image](https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/structure.jpg)
+<img src="https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/structure.jpg" width="600" height="400">
 
 ## Requirements
 * python 3.6.12
