@@ -13,6 +13,12 @@ The Automatic Rail Surface Multi-flaw Identification Based on A Deep Learning Po
 ## Introduction
 This paper develops a vision-based inspection framework for the automated identification of rail surface flaw categories.
 
+The procedure of the model in this paper is presented in the next image:
+![image](https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/procedure.jpg)
+
+The structure of the classifier in this paper is presented in the next image:
+![image](https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/structure.jpg)
+
 ## Requirements
 * python 3.6.12
 * keras 2.1.4
@@ -50,8 +56,10 @@ python densenet_add_test.py
 5. If you want to use your own data to train the model, you need to run track_extraction.py to extract the critical part of the image. Then you can utilize images to train our model.
 
 ## Results
-...
+
+![image](https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/result.png)
 
 ## Contact
-
+qihaoyanggene@gmail.com
+lizhuanglily@gmail.com
 
