@@ -49,15 +49,15 @@ if __name__ == '__main__':
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
     kf = KFold(n_splits=4)
-    x1_test_,y1_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/corrugation_new_test','Corrugation')
-    x1_test,y1_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Corrugation_test','Corrugation')
-    x2_test,y2_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Defect_test','Defect')
-    x2_test_,y2_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/defect_new_test','Defect')
-    x3_test,y3_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Rail_with_Grinding_Mark_test','Rail with Grinding Mark')
-    x4_test,y4_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Shelling_test','Shelling')
-    x4_test_,y4_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/shelling_new_test','Shelling')
-    x5_test,y5_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Squat_test','Squat')
-    x5_test_,y5_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/squat_new_test','Squat')
+    x1_test_,y1_test_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/corrugation_new_test','Corrugation')
+    x1_test,y1_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Corrugation_test','Corrugation')
+    x2_test,y2_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Defect_test','Defect')
+    x2_test_,y2_test_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/defect_new_test','Defect')
+    x3_test,y3_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Rail_with_Grinding_Mark_test','Rail with Grinding Mark')
+    x4_test,y4_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Shelling_test','Shelling')
+    x4_test_,y4_test_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/shelling_new_test','Shelling')
+    x5_test,y5_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Squat_test','Squat')
+    x5_test_,y5_test_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/squat_new_test','Squat')
     score = 0
     score1 = 0
     score2 = 0
@@ -72,7 +72,7 @@ if __name__ == '__main__':
         x_test = np.concatenate((x1_test,x2_test,x2_test_,x3_test,x4_test,x5_test,x1_test_,x4_test_,x5_test_))
         y_test = np.concatenate((y1_test,y2_test,y2_test_,y3_test,y4_test,y5_test,y1_test_,y4_test_,y5_test_))
         y_test = np_utils.to_categorical(y_test,num_classes=5)
-        model = load_model(filepath = '/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet_169_03-01_all_5classes',custom_objects={'Scale':Scale})
+        model = load_model(filepath = '/home/daisy001/mountdir/qihaoyang/track_model/model/densenet_169_03-01_all_5classes',custom_objects={'Scale':Scale})
         time_start=time.time()
         pre = model.predict(x_test)
         pre = np.argmax(pre,axis=1)

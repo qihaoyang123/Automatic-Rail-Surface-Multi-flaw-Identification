@@ -255,11 +255,11 @@ if __name__ == '__main__':
             data.append(img)
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
-    x1_f,y1_f = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/fake_images/corrugation','Corrugation')
-    x2_f,y2_f = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/fake_images/defect','Defect')
-    x3_f,y3_f = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/fake_images/grinding_mark','Rail with Grinding Mark')
-    x4_f,y4_f = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/fake_images/shelling','Shelling')
-    x5_f,y5_f = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/fake_images/squat','Squat')
+    x1_f,y1_f = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/fake_images/corrugation','Corrugation')
+    x2_f,y2_f = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/fake_images/defect','Defect')
+    x3_f,y3_f = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/fake_images/grinding_mark','Rail with Grinding Mark')
+    x4_f,y4_f = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/fake_images/shelling','Shelling')
+    x5_f,y5_f = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/fake_images/squat','Squat')
     kf = KFold(n_splits=4)
     def glcm(arr, d_x, d_y, gray_level=16): #(1,0) horizontal direction （0，1）vertical direction （1，1）45 degree direction （-1，1）135 degree direction
         '''return glcm matrix'''
@@ -314,7 +314,7 @@ if __name__ == '__main__':
         y_test = np.concatenate((y1_f_test,y2_f_test,y3_f_test,y4_f_test,y5_f_test))
         y_train = np_utils.to_categorical(y_train,num_classes=5)
         y_test = np_utils.to_categorical(y_test,num_classes=5)
-        model = load_model(filepath='/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet_169_08-06_new_5classes',custom_objects={'Scale':Scale})
+        model = load_model(filepath='/home/daisy001/mountdir/qihaoyang/track_model/model/densenet_169_08-06_new_5classes',custom_objects={'Scale':Scale})
         feature_model = Model(inputs=model.input,outputs=model.get_layer('pool5').output)
         def get_feature(feature_model,x_train):
             output = feature_model.predict(x_train)
@@ -396,7 +396,7 @@ if __name__ == '__main__':
         model = Model(img_input, x, name='densenet_add')
         sgd = SGD(lr=1e-3, decay=1e-6, momentum=0.9, nesterov=True)
         model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
-        filepath = '/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet169_'+time.strftime("%m-%d",time.localtime())+'_all_add_fake'
+        filepath = '/home/daisy001/mountdir/qihaoyang/track_model/model/densenet169_'+time.strftime("%m-%d",time.localtime())+'_all_add_fake'
         checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=0, save_best_only=True, mode='max', period=1)
         callbacks_list = [checkpoint]
         model.fit(x_train_, y_train,

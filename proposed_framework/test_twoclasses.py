@@ -32,7 +32,7 @@ if __name__ == '__main__':
     num_classes = 2
     batch_size = 16
     nb_epoch = 100
-    file = pd.read_csv('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/analysis_validation_select_checked.csv')
+    file = pd.read_csv('/home/daisy001/qihaoyang/track_model/Data-defect/analysis_validation_select_checked.csv')
     label_dict = {'normal':0,'others':1}
     x = []
     y = np.array([]) 
@@ -48,14 +48,14 @@ if __name__ == '__main__':
             data.append(img)
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
-    x1_test,y1_test = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/others_test','others')
-    x2_test,y2_test = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/normal_test','normal')
+    x1_test,y1_test = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/others_test','others')
+    x2_test,y2_test = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/normal_test','normal')
     kf = KFold(n_splits=4)
     for threshold in range(1,2):
         x_test = np.concatenate((x1_test,x2_test))
         y_test = np.concatenate((y1_test,y2_test))
         y_test = np_utils.to_categorical(y_test,num_classes=2)
-        model = load_model(filepath = '/home/daisy001/qihaoyang/cnn_finetune-master_/model/densenet_169_06-29_all_twoclasses',custom_objects={'Scale':Scale})
+        model = load_model(filepath = '/home/daisy001/qihaoyang/track_model/model/densenet_169_06-29_all_twoclasses',custom_objects={'Scale':Scale})
         time_start=time.time()
         pre = model.predict(x_test)
         time_end=time.time()

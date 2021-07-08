@@ -257,15 +257,15 @@ if __name__ == '__main__':
             data.append(img)
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
-    x1_test_,y1_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/corrugation_new_test','Corrugation')
-    x1_test,y1_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Corrugation_test','Corrugation')
-    x2_test,y2_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Defect_test','Defect')
-    x2_test_,y2_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/defect_new_test','Defect')
-    x3_test,y3_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Rail_with_Grinding_Mark_test','Rail with Grinding Mark')
-    x4_test,y4_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Shelling_test','Shelling')
-    x4_test_,y4_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/shelling_new_test','Shelling')
-    x5_test,y5_test = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Squat_test','Squat')
-    x5_test_,y5_test_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/squat_new_test','Squat')
+    x1_test_,y1_test_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/corrugation_new_test','Corrugation')
+    x1_test,y1_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Corrugation_test','Corrugation')
+    x2_test,y2_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Defect_test','Defect')
+    x2_test_,y2_test_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/defect_new_test','Defect')
+    x3_test,y3_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Rail_with_Grinding_Mark_test','Rail with Grinding Mark')
+    x4_test,y4_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Shelling_test','Shelling')
+    x4_test_,y4_test_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/shelling_new_test','Shelling')
+    x5_test,y5_test = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Squat_test','Squat')
+    x5_test_,y5_test_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/squat_new_test','Squat')
     kf = KFold(n_splits=4)
     def glcm(arr, d_x, d_y, gray_level=16): #(1,0) horizontal direction （0，1）vertical direction （1，1）45 degree direction （-1，1）135 degree direction
         '''return glcm matrix'''
@@ -290,7 +290,7 @@ if __name__ == '__main__':
         y_test = np.concatenate((y1_test,y1_test_,y2_test,y2_test_,y3_test,y4_test,y4_test_,y5_test,y5_test_))
         y_test_value = y_test
         y_test = np_utils.to_categorical(y_test,num_classes=5)
-        model = load_model(filepath='/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet_169_08-06_new_5classes',custom_objects={'Scale':Scale})
+        model = load_model(filepath='/home/daisy001/mountdir/qihaoyang/track_model/model/densenet_169_08-06_new_5classes',custom_objects={'Scale':Scale})
         feature_model = Model(inputs=model.input,outputs=model.get_layer('pool5').output)
         def get_feature(feature_model,x_train):
             output = feature_model.predict(x_train)
@@ -347,7 +347,7 @@ if __name__ == '__main__':
             return np.array(data)
         feature3_ = get_feature3(x_test)
         x_test_ = np.concatenate((get_feature(feature_model,x_test),feature3_),axis=1)
-        model = load_model(filepath = '/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet169_03-01_all_add',custom_objects={'class_weighted_crossentropy':class_weighted_crossentropy})
+        model = load_model(filepath = '/home/daisy001/mountdir/qihaoyang/track_model/model/densenet169_03-01_all_add',custom_objects={'class_weighted_crossentropy':class_weighted_crossentropy})
         pre = model.predict(x_test_)
         pre = np.argmax(pre,axis=1)
         y_test = np.argmax(y_test,axis=1)

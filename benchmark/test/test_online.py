@@ -27,7 +27,7 @@ def class_weighted_crossentropy(target, output):
 
 if __name__ == '__main__':
 
-    img_rows, img_cols = 299, 299 # Resolution of inputs
+    img_rows, img_cols = 224, 224 # Resolution of inputs
     channel = 3
     num_classes = 3
     batch_size = 8
@@ -42,16 +42,16 @@ if __name__ == '__main__':
         y = np.array([])
         for i in img_path:
             img = cv2.imread(os.path.join(path,i))
-            if img.shape[1]<299:
-                img = cv2.resize(cv2.copyMakeBorder(img,0,0,int((299-img.shape[1])/2),int((299-img.shape[1])/2),cv2.BORDER_CONSTANT,value=255),(299,299))
-            else: img = cv2.resize(img,(299,299))
+            if img.shape[1]<224:
+                img = cv2.resize(cv2.copyMakeBorder(img,0,0,int((224-img.shape[1])/2),int((224-img.shape[1])/2),cv2.BORDER_CONSTANT,value=255),(224,224))
+            else: img = cv2.resize(img,(224,224))
             data.append(img) 
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
     kf = KFold(n_splits=4)
-    x2_,y2_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/defect_online','Defect')
-    x1_o,y1_o = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Online Data/corrugation_new_online','Corrugation')
-    x5_o,y5_o = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Online Data/squat_new_online','Squat')
+    x2_,y2_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/defect_online','Defect')
+    x1_o,y1_o = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Online Data/corrugation_new_online','Corrugation')
+    x5_o,y5_o = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Online Data/squat_new_online','Squat')
     score = 0
     score1 = 0
     score2 = 0
@@ -89,7 +89,7 @@ if __name__ == '__main__':
         y_test = np.concatenate((y2_test_,y1_o_test,y5_o_test))
         y_train = np_utils.to_categorical(y_train,num_classes=3)
         y_test = np_utils.to_categorical(y_test,num_classes=3)
-        model = load_model(filepath = '/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/inceptionv4_03-06_all_online',custom_objects={'Scale':Scale})
+        model = load_model(filepath = '/home/daisy001/mountdir/qihaoyang/track_model/model/densenet_169_03-03_all_online',custom_objects={'Scale':Scale})
         time_start=time.time()
         pre = model.predict(x_test)
         pre = np.argmax(pre,axis=1)

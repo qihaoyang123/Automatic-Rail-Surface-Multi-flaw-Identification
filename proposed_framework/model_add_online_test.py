@@ -255,9 +255,9 @@ if __name__ == '__main__':
             data.append(img)
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
-    x2_,y2_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/defect__','Defect')
-    x1_o,y1_o = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Online Data/corrugation_new_online','Corrugation')
-    x5_o,y5_o = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Online Data/squat_new_online','Squat')
+    x2_,y2_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/defect__','Defect')
+    x1_o,y1_o = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Online Data/corrugation_new_online','Corrugation')
+    x5_o,y5_o = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Online Data/squat_new_online','Squat')
     kf = KFold(n_splits=4)
     def glcm(arr, d_x, d_y, gray_level=16): #(1,0) horizontal direction （0，1）vertical direction （1，1）45 degree direction （-1，1）135 degree direction
         '''return glcm matrix'''
@@ -310,7 +310,7 @@ if __name__ == '__main__':
         y_test_value = y_test
         y_train = np_utils.to_categorical(y_train,num_classes=3)
         y_test = np_utils.to_categorical(y_test,num_classes=3)
-        model = load_model(filepath='/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet_169_03-03_all_online_5classes',custom_objects={'Scale':Scale})
+        model = load_model(filepath='/home/daisy001/mountdir/qihaoyang/track_model/model/densenet_169_03-03_all_online_5classes',custom_objects={'Scale':Scale})
         feature_model = Model(inputs=model.input,outputs=model.get_layer('pool5').output)
         def get_feature(feature_model,x_train):
             output = feature_model.predict(x_train)
@@ -372,7 +372,7 @@ if __name__ == '__main__':
         feature3_ = get_feature3(x_test)
         x_train_ = np.concatenate((get_feature(feature_model,x_train),feature3),axis=1)
         x_test_ = np.concatenate((get_feature(feature_model,x_test),feature3_),axis=1)
-        model = load_model(filepath = '/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet169_03-04_all_add_online',custom_objects={'class_weighted_crossentropy':class_weighted_crossentropy})
+        model = load_model(filepath = '/home/daisy001/mountdir/qihaoyang/track_model/model/densenet169_03-04_all_add_online',custom_objects={'class_weighted_crossentropy':class_weighted_crossentropy})
         pre = model.predict(x_test_)
         pre = np.argmax(pre,axis=1)
         y_test = np.argmax(y_test,axis=1)

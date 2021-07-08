@@ -246,7 +246,7 @@ if __name__ == '__main__':
     num_classes = 5
     batch_size = 8
     nb_epoch = 100
-    file = pd.read_csv('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/analysis_validation_select_checked.csv')
+    file = pd.read_csv('/home/daisy001/qihaoyang/track_model/Data-defect/analysis_validation_select_checked.csv')
     label_dict = {'Corrugation':0,'Defect':1,'Rail with Grinding Mark':2,'Shelling':3,'Squat':4}
     x = []
     y = np.array([]) 
@@ -262,14 +262,14 @@ if __name__ == '__main__':
             data.append(img)
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
-    x1_,y1_ = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/corrugation_new','Corrugation')
-    x1,y1 = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/Corrugation','Corrugation')
-    x2,y2 = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/Defect','Defect')
-    x3,y3 = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/Rail_with_Grinding_Mark','Rail with Grinding Mark')
-    x4,y4 = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/Shelling','Shelling')
-    x4_,y4_ = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/shelling_new','Shelling')
-    x5,y5 = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/Squat','Squat')
-    x5_,y5_ = read_image('/home/daisy001/qihaoyang/cnn_finetune-master_/Data-defect/squat_new','Squat')
+    x1_,y1_ = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/corrugation_new','Corrugation')
+    x1,y1 = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/Corrugation','Corrugation')
+    x2,y2 = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/Defect','Defect')
+    x3,y3 = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/Rail_with_Grinding_Mark','Rail with Grinding Mark')
+    x4,y4 = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/Shelling','Shelling')
+    x4_,y4_ = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/shelling_new','Shelling')
+    x5,y5 = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/Squat','Squat')
+    x5_,y5_ = read_image('/home/daisy001/qihaoyang/track_model/Data-defect/squat_new','Squat')
     kf = KFold(n_splits=4)
     for threshold in range(1,2):
         x1_train, x1_test, y1_train, y1_test = train_test_split(x1, y1, test_size=0.3, random_state=20)
@@ -307,7 +307,7 @@ if __name__ == '__main__':
         y_test = np.concatenate((y1_test,y2_test,y3_test,y4_test,y5_test,y1_test_,y4_test_,y5_test_)) 
         y_train = np_utils.to_categorical(y_train,num_classes=5)
         y_test = np_utils.to_categorical(y_test,num_classes=5)
-        filepath = '/home/daisy001/qihaoyang/cnn_finetune-master_/model/densenet_169_'+time.strftime("%m-%d",time.localtime())+'_new_centerloss'
+        filepath = '/home/daisy001/qihaoyang/track_model/model/densenet_169_'+time.strftime("%m-%d",time.localtime())+'_new_centerloss'
         checkpoint = ModelCheckpoint(filepath, monitor='val_prob_acc', verbose=0, save_best_only=True, mode='max', period=1)
         callbacks_list = [checkpoint]
         img_input = Input(shape=(224, 224, 3))

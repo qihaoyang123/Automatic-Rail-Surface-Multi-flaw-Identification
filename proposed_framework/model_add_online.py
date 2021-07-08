@@ -255,9 +255,9 @@ if __name__ == '__main__':
             data.append(img)
             y = np.append(y,label_dict[label_name])
         return np.array(data),y
-    x2_,y2_ = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/defect__','Defect')
-    x1_o,y1_o = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Online Data/corrugation_new_online','Corrugation')
-    x5_o,y5_o = read_image('/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/Data-defect/Online Data/squat_new_online','Squat')
+    x2_,y2_ = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/defect__','Defect')
+    x1_o,y1_o = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Online Data/corrugation_new_online','Corrugation')
+    x5_o,y5_o = read_image('/home/daisy001/mountdir/qihaoyang/track_model/Data-defect/Online Data/squat_new_online','Squat')
     kf = KFold(n_splits=4)
     def glcm(arr, d_x, d_y, gray_level=16): #(1,0)水平方向 （0，1）垂直方向 （1，1）45度方向 （-1，1）135度方向
         '''计算并返回归一化后的灰度共生矩阵'''
@@ -310,7 +310,7 @@ if __name__ == '__main__':
         y_test_value = y_test
         y_train = np_utils.to_categorical(y_train,num_classes=3)
         y_test = np_utils.to_categorical(y_test,num_classes=3)
-        model = load_model(filepath='/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet_169_03-03_all_online_5classes',custom_objects={'Scale':Scale})
+        model = load_model(filepath='/home/daisy001/mountdir/qihaoyang/track_model/model/densenet_169_03-03_all_online_5classes',custom_objects={'Scale':Scale})
         feature_model = Model(inputs=model.input,outputs=model.get_layer('pool5').output)
         def get_feature(feature_model,x_train):
             output = feature_model.predict(x_train)
@@ -392,7 +392,7 @@ if __name__ == '__main__':
         model = Model(img_input, x, name='densenet_add')
         sgd = SGD(lr=1e-3, decay=1e-4, momentum=0.8, nesterov=True)
         model.compile(optimizer=sgd, loss='categorical_crossentropy', metrics=['accuracy'])
-        filepath = '/home/daisy001/mountdir/qihaoyang/cnn_finetune-master_/model/densenet169_'+time.strftime("%m-%d",time.localtime())+'_all_add_online'
+        filepath = '/home/daisy001/mountdir/qihaoyang/track_model/model/densenet169_'+time.strftime("%m-%d",time.localtime())+'_all_add_online'
         checkpoint = ModelCheckpoint(filepath, monitor='val_acc', verbose=0, save_best_only=True, mode='max', period=1)
         callbacks_list = [checkpoint]
         model.fit(x_train_, y_train,
