@@ -71,6 +71,7 @@ python deep_ml.py # test the benchmark utilizing traditional machine learning mo
 ## Results
 
 ![image](https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/result.png)
+![image](https://github.com/qihaoyang123/Automatic-Rail-Surface-Multi-flaw-Identification/blob/main/images/result2.png)
 
 ## Contact
 qihaoyanggene@gmail.com
