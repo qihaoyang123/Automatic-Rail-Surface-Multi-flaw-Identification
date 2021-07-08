@@ -40,7 +40,8 @@ The structure of the classifier in this paper is presented in the next image:
    Download the weight trained by our data to test the results of our experiments: https://drive.google.com/drive/folders/1ra-qUmwvx9-7JYThDQ77zqHJLnmyEA6x?usp=sharing  
    Download the initial weight to train your own data: https://drive.google.com/drive/folders/11mmlNC_PCGG5-LpD6ynYN7h_lRtUDDa2?usp=sharing  
    After downloading all files required for code running, you need to change the path of these files in the code files.
-4. Due to data confidentiality, we only release the test set. The files for testing are in this path: benchmark/test.   The following command tests the benchmark:
+4. Due to data confidentiality, we only release the test set. The files for testing are in this path: benchmark/test.  
+The following command tests the benchmark:
 ```
 python test.py
 ``` 
