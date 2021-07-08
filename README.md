@@ -1,6 +1,6 @@
 # The Automatic Rail Surface Multi-flaw Identification Based on A Deep Learning Powered Framework
 
-This repository contains the code for DenseNet introduced in the following paper:
+This repository contains the code for Rail Surface Multi-flaw Identification introduced in the following paper:
 
 The Automatic Rail Surface Multi-flaw Identification Based on A Deep Learning Powered Framework
 
